@@ -30,7 +30,7 @@ public class Mcalc {
     // could be returned by the user input.
     int partNr = 0;
     if (parts[0].matches( integerOrDecimalRegex ) == false ) {
-      System.out.println(prompt + "Your first argument must be a number.");
+      System.out.println("Your first argument must be a number.");
     }
     for ( String part : parts ) {
       if (partNr < 2) {
