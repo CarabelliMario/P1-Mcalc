@@ -5,6 +5,41 @@ import java.io.Console;
 import java.util.ArrayList;
 
 public class Mcalc {
+
+  // Throws exceptions at set
+  private static class Operation {
+   static private double arg1 = 0;
+   static private double arg2 = 0;
+   static private String operator = "+";
+    
+    private static void setArg1 (String arg) {
+      arg1 = Double.parseDouble(arg);
+    } 
+    private static void setArg2 (String arg) {
+      arg2 = Double.parseDouble(arg);
+    } 
+
+    private static void setOperator (String arg) {
+      String operatorRegex = "[-+*]";
+      if (arg.matches (operatorRegex)) {
+        operator = arg;
+      } else {
+      }
+    }
+
+    private static double calculate() {
+      if ( operator.equals( "+" ) ) {
+        return ( arg1 + arg2 );
+      } else if ( operator.equals( "-" ) ) {
+        return ( arg1 - arg2 );
+      } else if ( operator.equals( "*" ) ) {
+        return ( arg1 * arg2 );
+      } 
+      return 0.;
+    }
+      
+  }
+
   public static void main(String[] args) {
     String greetingArgumentMode = "command line arguments are ignored.";
 
@@ -15,40 +50,35 @@ public class Mcalc {
     }
 
     // Basic Mode
+    double result = 0.;
+    Operation operation = new Operation(); // custom class to store operation arguments and operators
 
     // read a line of input
-    System.out.println( "Enter an Expression:" );
+    System.out.println( "Enter a calculation" );
     String[] parts = System.console().readLine().split( " " );
-
-    ArrayList<String> words = new ArrayList<String>();
-    String[] expression = new String[ 3 ];
-    String validExpression = ""; // number + operator + number
-    String operatorRegex = "[-+*]";
-    String integerOrDecimalRegex = "^([+-])?[0-9]+([,.][0-9]+)?$";
-
-    // evalulates the input and returns the biggest valid expression which
-    // could be returned by the user input.
-    int partNr = 0;
-    if (parts[0].matches( integerOrDecimalRegex ) == false ) {
-      System.out.println("Your first argument must be a number.");
-    }
-    for ( String part : parts ) {
-      if (partNr < 2) {
-        expression[ partNr ] = part;
-        partNr++;
-      } else {
-        expression[ partNr ] = part;
-        if ( expression[1].matches( operatorRegex )
-          && expression[2].matches( integerOrDecimalRegex ) ) {
-            validExpression = expression[0] + expression[1] + expression[2];
-            expression[0] = validExpression;
-            partNr = 1;
-        } else {
-          break;
-        }
+    
+    // The first argument of an valid expression must be always a number.
+    operation.setArg1( parts[ 0 ] );
+    int calculatedParts = 1;
+    for ( int i = 1 ; i < parts.length ; i++ ) {
+      if ( ( i % 2 ) == 1 ) {  // 1, 3 ...
+        operation.setOperator( parts[ i ] );
+      } else { // 2, 4, ...
+        operation.setArg2( parts[ i ] );
+        result += operation.calculate();
+        operation.setArg1( Double.toString( result ) );
+        calculatedParts += 2;
       }
     }
-    System.out.println (validExpression);
+
+    if (calculatedParts != parts.length) {
+      System.out.println( "Due to invalid data entry only this part got evaluated: " );
+      for ( int i = 0 ; i < ( calculatedParts - 1 ) ; i++ ) {
+        System.out.print( parts[ i ] + " ");
+      }
+      System.out.println( parts[ calculatedParts - 1 ] );
+    }
+    System.out.println( "Result: " + result );
     System.exit( 0 );
   }
 }

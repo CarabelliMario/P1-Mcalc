@@ -9,7 +9,7 @@ In basic mode it will take arguments in the form:
   integer "operator" integer ...
 The first version will include the operators:
   "+", "-", and "\*"
-  
+
 If a newline is added and the opartion read in is viable
 it will output the result and leave mcalc
 Else it will write all the viable parts of the typed in information and prompt
