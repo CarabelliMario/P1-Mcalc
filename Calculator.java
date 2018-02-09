@@ -1,15 +1,39 @@
+import java.util.regex.Pattern;
 
-public class Calculator {
+public class Calculator 
+{
+  public static String removeWhitespaces( String s )
+  {
+    String stringWithoutSpaces = s.replaceAll("\\s+","");
+    return stringWithoutSpaces;
+  }
 
-  public static String[] splitAtWhitespace( String s ) {
-    s = s.trim(); // delete whitespaces at start and end
-    String[] numbersAndOperators = s.split("\\s+" );
-    return numbersAndOperators;
+  public static String[] splitBeforeAndAfterOperators( String s ) 
+  {
+    // Pattern.quote() is used to make the regex parts more readable
+    String anySupportedOperator = Pattern.quote("[+-*]");
+    String emptySpaceBeforeOperator = Pattern.quote(
+      "?<=" + anySupportedOperator // look around
+    );
+    String emptySpaceAfterOperator = Pattern.quote(
+     "?=" + anySupportedOperator // look ahead
+    );
+    String beforeAndAfterOperator = Pattern.quote(
+      "(" + emptySpaceBeforeOperator + ")|(" + emptySpaceAfterOperator + ")"
+    );
+
+    String[] argumentsAndOperators = s.split( beforeAndAfterOperator ); 
+
+    return argumentsAndOperators;
   }
   
-//  private static boolean expressionIsValid ( String[] expression ) {
-//    
-//  }
+  public static boolean expressionIsValid ( String[] expression ) 
+  {
+    if ( expression == null || expression.length == 0 ) {
+      return false;
+    }
+    return true;
+  }
 //
 //  private static String[] getBiggestValidExpression ( String[] numbersAndOperators ) {
 //    return validExpression;
