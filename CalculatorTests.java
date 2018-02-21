@@ -91,6 +91,20 @@ public class CalculatorTests
     expectedResult1 = new String[]{ "1", "*", "1"};
     check ( testcaseName, result1, expectedResult1 );
 
+    // representsOperator( String ) 
+    boolean result2;
+    boolean expectedResult2;
+
+    testcaseName = "+representsOperator";
+    result2 = calc.representsOperator( "+" );
+    expectedResult2 = true;
+    check ( testcaseName, result2, expectedResult2 );
+
+    testcaseName = "+withSpacedoesntRepresentsOperator";
+    result2 = calc.representsOperator( "+ " );
+    expectedResult2 = false;
+    check ( testcaseName, result2, expectedResult2 );
+
     // representsDouble( String ) 
     boolean result3;
     boolean expectedResult3;
@@ -116,20 +130,6 @@ public class CalculatorTests
     expectedResult3 = true;
     check ( testcaseName, result3, expectedResult3 );
 
-    // representsOperator( String ) 
-    boolean result2;
-    boolean expectedResult2;
-
-    testcaseName = "+representsOperator";
-    result2 = calc.representsOperator( "+" );
-    expectedResult2 = true;
-    check ( testcaseName, result2, expectedResult2 );
-
-    testcaseName = "+withSpacedoesntRepresentsOperator";
-    result2 = calc.representsOperator( "+ " );
-    expectedResult2 = false;
-    check ( testcaseName, result2, expectedResult2 );
-
     // operatorsAndDoublesAlternate( String[] )
     boolean result4;
     boolean expectedResult4;
@@ -139,7 +139,7 @@ public class CalculatorTests
       new String[]{"1", "+", "1"}
     );
     expectedResult4 = true;
-    check ( testcaseName, result2, expectedResult2 ); 
+    check ( testcaseName, result4, expectedResult4 ); 
 
 
     testcaseName = "operatorsAndDoubleAlternateAreNotAlternating";
@@ -147,7 +147,7 @@ public class CalculatorTests
       new String[]{"1", "+", "-", "1"}
     );
     expectedResult4 = false;
-    check ( testcaseName, result2, expectedResult2 ); 
+    check ( testcaseName, result4, expectedResult4 ); 
     
     // stringToExpression( String )
 
