@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Calculator 
 {
-  private static String supportedOperators = "+-*";
+  private static final String SUPPORTED_OPERATORS = "+-*";
 
   public static String removeWhitespaces( String s )
   {
@@ -13,7 +13,7 @@ public class Calculator
 
   public static String[] splitBeforeAndAfterOperators( String s ) 
   {
-    String anyOperator = "[\\Q" + supportedOperators + "\\E]";
+    String anyOperator = "[\\Q" + SUPPORTED_OPERATORS + "\\E]";
     String emptySpaceBeforeOperator =  "?<=" + anyOperator;
     String emptySpaceAfterOperator =  "?=" + anyOperator;
     String beforeAndAfterOperator = (
@@ -38,7 +38,7 @@ public class Calculator
   
   public static boolean representsOperator( String s )
   {
-    return s.matches( "[\\Q" + supportedOperators + "\\E]" );
+    return s.matches( "[\\Q" + SUPPORTED_OPERATORS + "\\E]" );
   }
   
   public static boolean operatorsAndDoublesAlternate( String[] expression )
@@ -59,14 +59,14 @@ public class Calculator
     return true;
   } 
 
-  public static String[] stringToExpression ( String s )x;
+  public static String[] stringToExpression( String s )
   {
     String withoutSpaces = removeWhitespaces( s );
     String[] expression = splitBeforeAndAfterOperators( withoutSpaces );
     return expression;
   }
 
-  public static boolean isValidExpression( String[] expression );
+  public static boolean isValidExpression( String[] expression )
   {
     if ( expression.length == 0 ) {
       return false;
@@ -83,16 +83,16 @@ public class Calculator
   private static String[] getBiggestValidExpression ( String s ) 
   {
     String[] expression = stringToExpression ( s );
-    String[] expressionToEvaluate = expression[0];
+    String[] expressionToEvaluate = {expression[0]};
 
-    if (!isValidExpression (expressionToEvaluate) {
-      return (new String[] = {""});
+    if (!isValidExpression (expressionToEvaluate) ) {
+      return (new String[]{""});
     }
 
     String[] biggestValidExpression = expressionToEvaluate;
-    static final int START_SIZE = biggestValidExpression.lenght;
+    final int START_SIZE = biggestValidExpression.length;
     for ( int i = START_SIZE; i < expression.length; i++ ) {
-      expressionToEvaluate = Arrays.copyOf( expressionToEvaluate, i + 1 )
+      expressionToEvaluate = Arrays.copyOf( expressionToEvaluate, i + 1 );
 
       if ( !isValidExpression ( expressionToEvaluate ) ) {
         break;
